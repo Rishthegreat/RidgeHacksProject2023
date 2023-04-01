@@ -2,13 +2,88 @@
 {% block title %}Update{% endblock %}
 {% block bodyContent %}
 
+<style>
+    body {
+        background-color: var(--primary-text-color);
+    }
+
+    .formdiv {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary-background-color);
+        padding: 60px 80px;
+        border-radius: 30px;
+    }
+
+    form label {
+        color: var(--primary-text-color);
+        font-size: 1.5rem;
+    }
+    form input {
+        font-size: 1.3rem;
+        border-radius: 5px;
+    }
+    .noacc {
+        display: flex;
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .noacc h1 {
+        font-size: 1.2rem;
+    }
+    .signupbtn {
+        background: transparent;
+        border: none;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-decoration: underline;
+        transition: 0.5s;
+    }
+    .signupbtn:hover {
+        cursor: pointer;
+        color: var(--secondary-text-color);
+        transition: 0.5s;
+    }
+    .h1top {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+</style>
+
+<div class="h1top">
+    <h1>Click the Button to update the matches for your requests</h1>
+</div>
 
 <div class='container'>
     <h3>Test</h3>
         <form action="/update" method="post">
-            <input type="submit">Update Matches</input>
+            {% if error is defined and error is sameas true %}
+            <div id="alert">{{error_message}}</div>
+            {% endif %}
+            <input class="btn-fancy" style="margin-top: 35px" type="submit" class="float-right submit-button">Update Matches</input>
         </form>
-
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('nav').css('top', 0);
+    })
+    $(window).scroll(function () {
+        var currentScroll = $(window).scrollTop();
+        if (currentScroll > previousScroll) {
+            $('nav').css('top', '-100px');
+        } else {
+            $('nav').css('top', 0);
+        }
+        previousScroll = currentScroll;
+    })
+</script>
+
 
 {% endblock %}
