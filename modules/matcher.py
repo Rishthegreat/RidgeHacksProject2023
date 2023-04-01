@@ -43,8 +43,7 @@ def search_for_match(user_uuid) -> Match:
         return None
     
     offerer_uuid, offer_uuid = offer
-    offererer = user.get_user_by_uuid(offerer_uuid)
-
+    
     # create match
     match = Match(requester.uuid, offerer_uuid, request_uuid, offer_uuid, part_id)
     return match    
