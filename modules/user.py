@@ -62,9 +62,19 @@ def create_account(email, username, password, first_name, last_name, state) -> U
     user = User(uuid, email, username, password_hash, first_name, last_name, state)
     return user
 
-def get_user_by_id(id):
-    # search database for user with id
-    # return all user data in user object
-    # TODO: implement this
-    user = None
-    return user
+def get_user_by_uuid(uuid):
+    # Search database for user with uuid
+    con = sqlite3.connect("database.db")
+    cur = con.cursor()
+    cur.execute("SELECT * FROM users WHERE users_uuid = ?", (uuid,))
+    user_attributes = cur.fetchone()
+    con.close()
+    
+    # If user is not found, return None
+    # Else, return user object
+    if user_attributes is None:
+        return None
+    else:
+        uuid, email, username, password_hash, first_name, last_name, state = user_attributes
+        user = User(uuid, email, username, password_hash, first_name, last_name, state)
+        return user
