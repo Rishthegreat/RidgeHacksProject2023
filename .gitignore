@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Intellij project files
+.idea/
+
+# Fleet project files
+.fleet/
