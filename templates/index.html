@@ -1,1 +1,40 @@
 {% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block bodyContent %}
+
+<style>
+
+</style>
+
+<h1 style="color: var(--primary-text-color)">Circuitrader</h1>
+
+<div class="IMG">
+    <img class="Slides" src="../static/images/ewaste1.png">
+    <img class="Slides" src="../static/images/ewaste2.png">
+    <img class="Slides" src="../static/images/ewaste3.png">
+    <img class="Slides" src="../static/images/ewaste4.png">
+</div>
+
+<script>
+    var slideIndex = 0;
+    carousel();
+
+    function carousel() {
+        var i;
+        var x = document.getElementsByClassName("Slides");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > x.length) {
+            slideIndex = 1
+        }
+        x[slideIndex - 1].style.display = "block";
+        setTimeout(carousel, 2000); // Change image every 2 seconds
+    }
+</script>
+<p>
+    Welcome to the Circuitrader website, where tech enthusiasts congregate in order to wage war on e-waste
+    , and help save our planet
+</p>
+{% endblock %}

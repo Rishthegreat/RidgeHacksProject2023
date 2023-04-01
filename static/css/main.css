@@ -1,0 +1,17 @@
+:root {
+    --primary-background-color: #020c38;
+    --primary-text-color: #95e3be;
+}
+.navbar{
+
+}
+
+h1 {
+        text-align: center;
+        /**background-color: #3A7734;**/
+        background: var(--primary-background-color);
+    }
+.IMG {
+    display: flex;
+    justify-content: center;
+}
