@@ -31,5 +31,14 @@ def background_process_test():
     print("Hello")
     return (matcher.search_for_match(session['uuid']))
 
+
+@app.route('/logout')
+def logout():
+    session['logged_in'] = False
+    session.pop('username', None)
+    session.pop('uuid', None)
+    return redirect('/')
+
 if __name__ == '__main__':
     app.run(debug=True)
+

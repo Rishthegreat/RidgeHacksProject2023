@@ -24,9 +24,38 @@
         font-size: 1.3rem;
         border-radius: 5px;
     }
+    .noacc {
+        display: flex;
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .noacc h1 {
+        font-size: 1.2rem;
+    }
+    .signupbtn {
+        background: transparent;
+        border: none;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-decoration: underline;
+        transition: 0.5s;
+    }
+    .signupbtn:hover {
+        cursor: pointer;
+        color: var(--secondary-text-color);
+        transition: 0.5s;
+    }
+    .h1top {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 </style>
-<div>
-    <h1 style="text-align: center; color: var(--primary-text-color);">Login</h1>
+<div class="h1top">
+    <h1>Login</h1>
 </div>
 <div class="formdiv">
     <form id="myform" action="/login" method="post">
@@ -42,7 +71,7 @@
     </form>
     <input class="btn-fancy" style="margin-top: 35px" type="submit" class="float-right submit-button" form="myform" value="Submit"/>
 </div>
-<button id="myButton" class="float-left submit-button">SignUp</button>
+<div class="noacc"><h3>No account?</h3><button id="myButton" class="float-left submit-button signupbtn">SignUp</button></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
