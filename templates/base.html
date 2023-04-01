@@ -19,12 +19,17 @@
         </div>
         <!-- Cen Div -->
         <div id = "centerdiv">
-            <a class="navlinks" href = "/mission">Our Mission</a>
+            <a class="navlinks" href = "/"></a>
         </div>
         <!-- Rig Div -->
         <div id="rightdiv">
-            <a class="btn-fancy">Login</a>
+            {% if not session['logged_in'] %}
+            <a class="btn-fancy" href="/login">Login</a>
             <a class="btn-fancy" style="margin-left: 10px" href="/signup">Sign Up</a>
+            {% else %}
+            <a class="btn-fancy" href="/update">Profile</a>
+            <a class="btn-fancy" style="margin-left: 10px" href="/logout">Logout</a>
+            {% endif %}
         </div>
     </div>
 </nav>

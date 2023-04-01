@@ -15,10 +15,19 @@ def signup():
 def login():
     return render_template('login.html')
 
+@app.route('/offer', methods=['POST', 'GET'])
+def offer():
+    return render_template('offer.html')
 
-@app.route('/mission')
-def mission():
-    return render_template('mission.html')
+@app.route('/update')
+def update():
+    return render_template('update.html')
+
+#background process happening without any refreshing
+@app.route('/background_process_test')
+def background_process_test():
+    print("Hello")
+    return (matcher.search_for_match(session['uuid']))
 
 if __name__ == '__main__':
     app.run(debug=True)

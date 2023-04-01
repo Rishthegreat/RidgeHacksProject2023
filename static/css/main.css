@@ -4,14 +4,14 @@
 }
 
 :root {
-    --primary-background-color: #020c38;
-    --primary-text-color: #95e3be;
+    --primary-background-color: #0A2236;
+    --primary-text-color: #86c3c7;
     --secondary-text-color: #49a277;
     --font-family: 'Futura', serif;
 }
 
 body {
-   margin: 0;
+    margin: 0;
 }
 
 * {
@@ -32,9 +32,9 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    max-width: 70rem;
+    padding-top: 23px;
+    padding-bottom: 23px;
+    max-width: 80rem;
     margin-right: auto;
     margin-left: auto;
 }
@@ -46,8 +46,17 @@ nav {
     border: var(--primary-text-color) 1px solid;
     padding: 6px 12px;
     text-decoration: none;
-    border-radius: 15px;
-    font-size: 1.2rem;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+#btn-signupfromhomepage {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: fade-in 1s forwards;
 }
 
 .btn-fancy:hover {
@@ -57,29 +66,38 @@ nav {
     transition: 0.5s;
 }
 
+.first-scroll {
+    position: absolute;
+    top: 92%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--primary-text-color);
+    font-size: 1rem;
+    text-align: center;
+    animation: fade-in 1s forwards;
+    animation-delay: 2s;
+    opacity: 0;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .navlinks {
     color: var(--primary-text-color);
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     transition: 0.5s;
 }
 
 .navlinks:hover {
     color: var(--secondary-text-color);
     transition: 0.5s;
-}
-
-h1 {
-    text-align: center;
-    /**background-color: #3A7734;**/
-    background: var(--primary-background-color);
-    font-size: large;
-}
-h2 {
-    text-align: center;
-    /**background-color: #3A7734;**/
-    background: var(--primary-background-color);
-    font-size: medium;
 }
 
 .IMG {
@@ -89,5 +107,86 @@ h2 {
 
 .Slides {
     height: 400px;
-    width: auto;
+    width: 500px;
+    object-fit: cover;
+    border-radius: 30px;
+}
+
+.bg-img-1 {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(transparent, transparent, var(--primary-background-color)), url("/static/images/HomepageBG1.jpg");
+    background-size: 105%;
+    background-position-x: 60%;
+    animation: dim 2s forwards;
+}
+
+@keyframes dim {
+    0% {
+        filter: brightness(1);
+    }
+    100% {
+        filter: brightness(0.8);
+    }
+}
+
+.titles {
+    background: var(--primary-background-color);
+    border-radius: 50px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--primary-text-color);
+    text-align: center;
+    font-size: 4rem;
+    width: 30%;
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+
+.titles-reverse {
+    color: var(--primary-background-color);
+    border-radius: 50px;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--primary-text-color);
+    text-align: center;
+    font-size: 4rem;
+    width: 60%;
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+
+.bg2-text {
+    position: absolute;
+    color: var(--primary-background-color);
+    border-radius: 50px;
+    background: var(--primary-text-color);
+    text-align: center;
+    font-size: 2.7rem;
+    width: 30%;
+    margin-left: 15%;
+    padding: 17px 15px;
+    transform: translateY(-13%)
+}
+
+.bg3-text {
+    position: absolute;
+    background: var(--primary-background-color);
+    border-radius: 50px;
+    color: var(--primary-text-color);
+    text-align: center;
+    font-size: 2.7rem;
+    width: 35%;
+    margin-left: 5%;
+    padding: 17px 15px;
+    transform: translateY(-13%)
+}
+
+.border {
+    border: 1px solid var(--primary-text-color);
 }

@@ -1,52 +1,79 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock %}
 {% block bodyContent %}
-<div>
-    <div>
-        <div style="position: absolute; height: 100%; width: 100%; background: url('../static/images/HomepageBG1.jpg')"></div>
+<div style="height: 200vh">
+    <div style="height: 100vh; position: relative;">
+        <div class="bg-img-1"></div>
+        <h1 class="titles">Welcome to Circuitrader</h1>
+        {% if not session['logged_in'] %}
+        <a id="btn-signupfromhomepage" class="btn-fancy" href="/signup">Signup Now!</a>
+        {% endif %}
+        <span class="first-scroll">Scroll to learn more about us!</span>
     </div>
+    <div style="height: 100vh; position: relative; background: var(--primary-background-color)">
+        <h1 class="titles-reverse">What do we do at Circuitrader?</h1>
+        <div style="display: flex; position: absolute; top: 40%; width: 100%">
+            <div style="width: 50%"><h2 class="bg2-text" style="">We provide a
+                way for tech enthusiasts to meet and save the planet together by reducing e-waste</h2></div>
+            <div style="width: 50%;"><img style="height: 300px; margin-left: 80px" src="../static/images/earth.png">
+            </div>
+        </div>
+    </div>
+    <div style="height: 100vh; position: relative; background: var(--primary-text-color)">
+        <h1 class="titles" style="top: 10%; width: 35%">Why do we do it?</h1>
+        <div style="display: flex; position: absolute; top: 35%; width: 100%">
+            <div style="width: 50%;">
+                <div class="IMG">
+                    <img class="Slides" src="../static/images/E-waste1.jpg">
+                    <img class="Slides" src="../static/images/E-waste2.jpg">
+                    <img class="Slides" src="../static/images/E-waste3.jpg">
+                    <img class="Slides" src="../static/images/E-waste4.jpg">
+                </div>
+            </div>
+            <div style="width: 50%"><h2 class="bg3-text" style="">E-waste is a huge problem in the world today. We want
+                to
+                help reduce the amount of e-waste that is produced by providing a way for people to request or offer
+                their
+                electronic components to others.</h2></div>
+        </div>
 
-    <div class="IMG">
-        <img class="Slides" src="../static/images/ewaste1.png">
-        <img class="Slides" src="../static/images/ewaste2.png">
-        <img class="Slides" src="../static/images/ewaste3.png">
-        <img class="Slides" src="../static/images/ewaste4.png">
     </div>
-    <p>
-        Welcome to the Circuitrader website, where tech enthusiasts congregate in order to wage war on e-waste
-        , and help save our planet
-    </p>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('nav').css('top', 0);
-    })
-    var previousScroll = $(window).scrollTop
-    $(window).scroll(function () {
-        var currentScroll = $(window).scrollTop();
-        if (currentScroll > previousScroll) {
-            $('nav').css('top', '-100px');
-        } else {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+        var scrolled = false;
+        $(document).ready(function () {
             $('nav').css('top', 0);
-        }
-        previousScroll = currentScroll;
-    })
-    var slideIndex = 0;
-    carousel();
+            scrolled = false;
+        })
+        var previousScroll = $(window).scrollTop
+        $(window).scroll(function () {
+            var currentScroll = $(window).scrollTop();
+            if (currentScroll > previousScroll) {
+                $('nav').css('top', '-100px');
+            } else {
+                $('nav').css('top', 0);
+            }
+            previousScroll = currentScroll;
+            if (!scrolled) {
+                $('.first-scroll').addClass('hidden');
+                scrolled = true;
+            }
+        })
+        var slideIndex = 0;
+        carousel();
 
-    function carousel() {
-        var i;
-        var x = document.getElementsByClassName("Slides");
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("Slides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > x.length) {
+                slideIndex = 1
+            }
+            x[slideIndex - 1].style.display = "block";
+            setTimeout(carousel, 2000); // Change image every 2 seconds
         }
-        slideIndex++;
-        if (slideIndex > x.length) {
-            slideIndex = 1
-        }
-        x[slideIndex - 1].style.display = "block";
-        setTimeout(carousel, 2000); // Change image every 2 seconds
-    }
-</script>
-{% endblock %}
+    </script>
+    {% endblock %}

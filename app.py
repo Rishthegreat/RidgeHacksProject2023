@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, redirect, session
+from flask import request
 import modules.user as user
 
 app = Flask(__name__)
