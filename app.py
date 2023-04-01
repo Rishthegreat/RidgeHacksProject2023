@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, session
 from flask import request
 import modules.user as user
 import modules.matcher as matcher
+from modules.part import *
 
 app = Flask(__name__)
 app.secret_key = 'ThisIsSecret'
@@ -91,11 +92,29 @@ def getrequest():
             device = request.form['samsung_device']
         else:
             device = request.form['google_device']
-
-        user.add_request(brand, device, part)
+        requestedpart = Part(brand, device, part)
+        user.add_request(requestedpart)
 
     else:
         return render_template('getrequest.html')
+
+@app.route('/offer', methods=['POST', 'GET'])
+def offer():
+    if request.method == 'POST':
+
+        brand = request.form['brand']
+        part = request.form['part']
+        if(brand == 'apple'):
+            device = request.form['apple_device']
+        elif (brand == 'samsung'):
+            device = request.form['samsung_device']
+        else:
+            device = request.form['google_device']
+        requestedpart = Part(brand, device, part)
+        user.add_offer(requestedpart)
+
+    else:
+        return render_template('offer.html')
 
 @app.route('/update')
 def update():
@@ -103,21 +122,13 @@ def update():
 
         match = matcher.search_for_match(session['uuid'])
         if match != None: # If the user is valid
-            return redirect('/update', error=True, error_message="Match found! You can contact your offerer by emailing them at" + match.getOfferer.email)
+            return redirect('/update', error=True, error_message="Match found! You can contact your offerer by emailing them at" + match.get_offerer.email)
         else:
             return redirect('/update', error=True, error_message="We weren't able to find an offer for you, please try again later")
         # Call the database to validate the user
     else:
         return render_template('update.html')
 
-
-
-
-#background process happening without any refreshing
-@app.route('/background_process_test')
-def background_process_test():
-    print("Hello")
-    return (matcher.search_for_match(session['uuid']))
 
 if __name__ == '__main__':
     app.run(debug=True)
