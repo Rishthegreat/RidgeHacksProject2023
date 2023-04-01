@@ -10,13 +10,21 @@
 
 <nav>
     <div class = "navbar">
-        <!-- Logo and Name -->
-        <div>
-
+        <!-- Lef Div -->
+        <div id="leftdiv">
+            <a href = '/'>
+                <img src="{{url_for('static', filename='images/logo.png')}}" alt="logo" width="100" height="100">
+                <span class="navlinks">Circuitrader</span>
+            </a>
         </div>
-
-        <div>
-
+        <!-- Cen Div -->
+        <div id = "centerdiv">
+            <a class="navlinks" href = "/mission">Our Mission</a>
+        </div>
+        <!-- Rig Div -->
+        <div id="rightdiv">
+            <a class="btn-fancy">Login</a>
+            <a class="btn-fancy">Sign Up</a>
         </div>
     </div>
 </nav>
