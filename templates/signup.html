@@ -8,14 +8,61 @@
 
     .formdiv {
         position: absolute;
-        top: 30%;
+        top: 20%;
         left: 50%;
         transform: translateX(-50%);
         background: var(--primary-background-color);
-        padding: 60px 80px;
+        padding: 40px 80px;
         border-radius: 30px;
     }
+
+    form label {
+        color: var(--primary-text-color);
+        font-size: 1.5rem;
+    }
+
+    form input, select {
+        font-size: 1.3rem;
+        border-radius: 5px;
+    }
+
+    .noacc {
+        display: flex;
+        position: absolute;
+        top: 92%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .noacc h1 {
+        font-size: 1.2rem;
+    }
+
+    .loginbtn {
+        background: transparent;
+        border: none;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-decoration: underline;
+        transition: 0.5s;
+    }
+
+    .loginbtn:hover {
+        cursor: pointer;
+        color: var(--secondary-text-color);
+        transition: 0.5s;
+    }
+
+    .h1top {
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 </style>
+<div class="h1top">
+    <h1>Signup</h1>
+</div>
 <div class="formdiv">
     <form action="/signup" method="post">
         {% if error is defined and error is sameas true %}
@@ -84,7 +131,18 @@
             <option value="WI">Wisconsin</option>
             <option value="WY">Wyoming</option>
         </select>
-        <input type="submit" value="Submit">
+        <br>
+        <br>
+        <input class="btn-fancy" type="submit" value="Submit">
     </form>
 </div>
+<div class="noacc"><h3>Already Have an Account?</h3>
+    <button id="myButton" class="loginbtn">Login</button>
+</div>
+<script>
+    var button = document.getElementById('myButton');
+    button.addEventListener('click', function () {
+        window.location.href = '/login';
+    });
+</script>
 {% endblock %}
