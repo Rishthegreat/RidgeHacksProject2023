@@ -1,5 +1,6 @@
 import random
 import sqlite3
+import hashlib
 
 # user class
 class User:
@@ -16,20 +17,20 @@ class User:
 
     # Add user to database
     def add_to_database(self):
-        con = sqlite3.connect("database.db")
+        con = sqlite3.connect('database.db')
         cur = con.cursor()
         cur.execute(
-                "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?)",
+                'INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?)',
                 (self.uuid, self.email, self.username, self.password_hash, self.first_name, self.last_name, self.state)
             )
         con.commit()
         con.close()    
 
     def update_user(self):
-        con = sqlite3.connect("database.db")
+        con = sqlite3.connect('database.db')
         cur = con.cursor()
         cur.execute(
-                "UPDATE users SET email = ?, username = ?, password_hash = ?, first_name = ?, last_name = ?, state = ? WHERE users_uuid = ?",
+                'UPDATE users SET email = ?, username = ?, password_hash = ?, first_name = ?, last_name = ?, state = ? WHERE users_uuid = ?',
                 (self.email, self.username, self.password_hash, self.first_name, self.last_name, self.state, self.uuid)
             )
         con.commit()
@@ -51,12 +52,15 @@ def create_account(email, username, password, first_name, last_name, state) -> U
     #generate a random 15 digit integer
     while True:
         uuid = random.randint(100000000000000, 999999999999999)
-        # check if id is unique; if it is, break.
-        # TODO: implement this
-        break
+
+        # check if uuid is already in database, if so generate a new one
+        if get_user_by_uuid(uuid) is None:
+            break
+
+
 
     # hash the password
-    password_hash = hash(str(uuid) + password)
+    password_hash = hashlib.sha256((str(uuid) + password).encode('utf-8')).hexdigest()
 
     # create user object
     user = User(uuid, email, username, password_hash, first_name, last_name, state)
@@ -64,9 +68,9 @@ def create_account(email, username, password, first_name, last_name, state) -> U
 
 def get_user_by_uuid(uuid):
     # Search database for user with uuid
-    con = sqlite3.connect("database.db")
+    con = sqlite3.connect('database.db')
     cur = con.cursor()
-    cur.execute("SELECT * FROM users WHERE users_uuid = ?", (uuid,))
+    cur.execute('SELECT * FROM users WHERE users_uuid = ?', (uuid,))
     user_attributes = cur.fetchone()
     con.close()
     
@@ -78,3 +82,50 @@ def get_user_by_uuid(uuid):
         uuid, email, username, password_hash, first_name, last_name, state = user_attributes
         user = User(uuid, email, username, password_hash, first_name, last_name, state)
         return user
+    
+def get_user_by_username(username):
+    # Search database for user with username
+    con = sqlite3.connect('database.db')
+    cur = con.cursor()
+    cur.execute('SELECT * FROM users WHERE username = ?', (username,))
+    user_attributes = cur.fetchone()
+    con.close()
+    
+    # If user is not found, return None
+    # Else, return user object
+    if user_attributes is None:
+        return None
+    else:
+        uuid, email, username, password_hash, first_name, last_name, state = user_attributes
+        user = User(uuid, email, username, password_hash, first_name, last_name, state)
+        return user
+    
+def get_user_by_email(email):
+    # Search database for user with email
+    con = sqlite3.connect('database.db')
+    cur = con.cursor()
+    cur.execute('SELECT * FROM users WHERE email = ?', (email,))
+    user_attributes = cur.fetchone()
+    con.close()
+    
+    # If user is not found, return None
+    # Else, return user object
+    if user_attributes is None:
+        return None
+    else:
+        uuid, email, username, password_hash, first_name, last_name, state = user_attributes
+        user = User(uuid, email, username, password_hash, first_name, last_name, state)
+        return user
+    
+def check_login(username, password):
+    # search database for user with username
+
+    user = get_user_by_username(username)
+    if user is None:
+        return 'username_not_found'
+    
+    # check if password is correct
+    if user.password_hash == hashlib.sha256((str(user.uuid) + password).encode('utf-8')).hexdigest():
+        return 'success'
+    
+    return 'incorrect_password'
