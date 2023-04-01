@@ -1,10 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block bodyContent %}
+<style>
+    body {
+        background-color: var(--primary-text-color);
+    }
 
-</body>
-</html>
+    .formdiv {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--primary-background-color);
+        padding: 60px 80px;
+        border-radius: 30px;
+    }
+
+    form label {
+        color: var(--primary-text-color);
+        font-size: 1.5rem;
+    }
+    form input {
+        font-size: 1.3rem;
+        border-radius: 5px;
+    }
+</style>
+<div>
+    <h1 style="text-align: center; color: var(--primary-text-color);">Login</h1>
+</div>
+<div class="formdiv">
+    <form id="myform" action="/login" method="post">
+        {% if error is defined and error is sameas true %}
+        <div id="alert">{{error_message}}</div>
+        {% endif %}
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" placeholder="Enter username" name="username"><br>
+        <br>
+        <br>
+        <label for="password">Password:</label><br>
+        <input type="text" id="password" placeholder="Enter password" name="password"><br>
+    </form>
+    <input class="btn-fancy" style="margin-top: 35px" type="submit" class="float-right submit-button" form="myform" value="Submit"/>
+</div>
+<button id="myButton" class="float-left submit-button">SignUp</button>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('nav').css('top', 0);
+    })
+    $(window).scroll(function () {
+        var currentScroll = $(window).scrollTop();
+        if (currentScroll > previousScroll) {
+            $('nav').css('top', '-100px');
+        } else {
+            $('nav').css('top', 0);
+        }
+        previousScroll = currentScroll;
+    })
+</script>
+<script type="text/javascript">
+    document.getElementById("myButton").onclick = function () {
+        location.href = "/signup";
+    };
+</script>
+{% endblock %}

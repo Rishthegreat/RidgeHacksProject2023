@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %}Offer{% endblock %}
+{% block bodyContent %}
+<p>Your mom</p>
+<p>Your mom</p>
+<p>Your mom</p>
+<p>Your mom</p>
+<p>Your mom</p>
+<p>Your mom</p>
+<p>Your mom</p>
+<p>Your mom</p>
+<p>Your mom</p>
+<p>Your mom</p>
+<p>Your mom</p>
+<p>Your mom</p>
+<p>Your mom</p>
+<p>Your mom</p>
+<form action="/offer" method="post">
+        {% if error is defined and error is sameas true %}
+        <div id="alert">{{error_message}}</div>
+        {% endif %}
+        <label for="brand">Brand</label><br>
+        <select id="brand" name="brand" required>
+                <option value="apple">Apple</option>
+                <option value="samsung">Samsung</option>
+                <option value="google">Google</option>
+        </select>
+        <label for="apple_device"></label><br>
+        <br>
+        <select id="apple_device" name = "apple_device">
+                <option value="iphone-4">iPhone 4</option>
+                <option value="iphone-5">iPhone 5</option>
+                <option value="iphone-6">iPhone 6</option>
+                <option value="iphone-7">iPhone 7</option>
+                <option value="iphone-8">iPhone 8</option>
+                <option value="iphone-9">iPhone 9</option>
+                <option value="iphone-10">iPhone 10</option>
+                <option value="iphone-11">iPhone 11</option>
+                <option value="iphone-12">iPhone 12</option>
+                <option value="iphone-13">iPhone 13</option>
+                <option value="iphone-14">iPhone 14</option>
+
+        </select>
+        <br>
+        <select id="samsung_device" name = "samsung_device">
+                <option value="galaxy-s3">Galaxy S3</option>
+                <option value="galaxy-s4">Galaxy S4</option>
+                <option value="galaxy-s5">Galaxy S5</option>
+                <option value="galaxy-s6">Galaxy S6</option>
+                <option value="galaxy-s7">Galaxy S7</option>
+                <option value="galaxy-s8">Galaxy S8</option>
+                <option value="galaxy-s9">Galaxy S9</option>
+                <option value="galaxy-s10">Galaxy S10</option>
+                <option value="galaxy-s20">Galaxy S20</option>
+                <option value="galaxy-s21">Galaxy S21</option>
+                <option value="galaxy-s22">Galaxy S22</option>
+                <option value="galaxy-s23">Galaxy S23</option>
+        </select>
+        <br>
+        <select id="google_device" name = "google_device">
+                <option value="pixel-1">Pixel 1</option>
+                <option value="pixel-2">Pixel 2</option>
+                <option value="pixel-3">Pixel 3</option>
+                <option value="pixel-4">Pixel 4</option>
+                <option value="pixel-5">Pixel 5</option>
+                <option value="pixel-6">Pixel 6</option>
+                <option value="pixel-7">Pixel 7</option>
+        </select>
+        <br>
+
+        <select id="part" name = "part">
+                <option value="screen">Screen</option>
+                <option value="battery">Battery</option>
+                <option value="camera">Camera</option>
+                <option value="speaker">Speaker</option>
+                <option value="microphone">Microphone</option>
+                <option value="charging-port">Charging Port</option>
+        </select>
+        <br>
+
+        <input type="submit" value = "Submit">
+</form>
+
+<script>
+      const brand = document.getElementById('brand');
+      const apple_device = document.getElementById('apple_device');
+      const samsung_device = document.getElementById('samsung_device')
+      const google_device = document.getElementById('google_device')
+
+      apple_device.style.visibility = 'visible';
+      samsung_device.style.visibility = 'hidden';
+      google_device.style.visibility = 'hidden';
+      brand.addEventListener('change', function handleChange(event) {
+         if (event.target.value === 'apple') {
+            apple_device.style.visibility = 'visible';
+            samsung_device.style.visibility = 'hidden';
+            google_device.style.visibility = 'hidden';
+         }
+         else if (event.target.value === 'samsung')
+         {
+            apple_device.style.visibility = 'hidden';
+            samsung_device.style.visibility = 'visible';
+            google_device.style.visibility = 'hidden';
+
+         }
+         else if (event.target.value === 'google')
+         {
+            apple_device.style.visibility = 'hidden';
+            samsung_device.style.visibility = 'hidden';
+            google_device.style.visibility = 'visible';
+
+         }
+
+      });
+   </script>
+{% endblock %}
