@@ -16,7 +16,7 @@ class User:
         self.matches = []
 
     # Add user to database
-    def add_to_database(self):
+    def add_to_database(self) -> None:
         con = sqlite3.connect('database.db')
         cur = con.cursor()
         cur.execute(
@@ -26,7 +26,7 @@ class User:
         con.commit()
         con.close()    
 
-    def update_user(self):
+    def update_user(self) -> None:
         con = sqlite3.connect('database.db')
         cur = con.cursor()
         cur.execute(
@@ -36,16 +36,16 @@ class User:
         con.commit()
         con.close()
 
-    def add_request(self, request):
+    def add_request(self, request) -> None:
         self.requests.append(request)
 
-    def add_match(self, match):
+    def add_match(self, match) -> None:
         self.matches.append(match)
 
-    def get_requests(self):
+    def get_requests(self) -> list:
         return self.requests
     
-    def get_matches(self):
+    def get_matches(self) -> list:
         return self.matches
     
 def create_account(email, username, password, first_name, last_name, state) -> User:
@@ -66,58 +66,47 @@ def create_account(email, username, password, first_name, last_name, state) -> U
     user = User(uuid, email, username, password_hash, first_name, last_name, state)
     return user
 
-def get_user_by_uuid(uuid):
-    # Search database for user with uuid
+def get_user_by(request_type, request, return_type='object') -> User | bool:
+    # Search database for user with request
     con = sqlite3.connect('database.db')
     cur = con.cursor()
-    cur.execute('SELECT * FROM users WHERE users_uuid = ?', (uuid,))
+    cur.execute('SELECT * FROM users WHERE ? = ?', (request_type, request))
     user_attributes = cur.fetchone()
     con.close()
-    
-    # If user is not found, return None
-    # Else, return user object
+
+    # return user object or boolean
     if user_attributes is None:
-        return None
+        if return_type == 'object':
+            return None
+        elif return_type == 'boolean':
+            return False
     else:
-        uuid, email, username, password_hash, first_name, last_name, state = user_attributes
-        user = User(uuid, email, username, password_hash, first_name, last_name, state)
-        return user
+        if return_type == 'object':
+            uuid, email, username, password_hash, first_name, last_name, state = user_attributes
+            user = User(uuid, email, username, password_hash, first_name, last_name, state)
+            return user
+        elif return_type == 'boolean':
+            return True
+
+def get_user_by_uuid(uuid) -> User:
+    return get_user_by('users_uuid', uuid)
+
+def get_user_by_email(email) -> User:
+    return get_user_by('email', email)
+
+def get_user_by_username(username) -> User:
+    return get_user_by('username', username)
+
+def uuid_exists(uuid) -> bool:
+    get_user_by('users_uuid', uuid, 'boolean')
+
+def email_exists(email) -> bool:
+    get_user_by('email', email, 'boolean')
+
+def username_exists(username) -> bool:
+    get_user_by('username', username, 'boolean')
     
-def get_user_by_username(username):
-    # Search database for user with username
-    con = sqlite3.connect('database.db')
-    cur = con.cursor()
-    cur.execute('SELECT * FROM users WHERE username = ?', (username,))
-    user_attributes = cur.fetchone()
-    con.close()
-    
-    # If user is not found, return None
-    # Else, return user object
-    if user_attributes is None:
-        return None
-    else:
-        uuid, email, username, password_hash, first_name, last_name, state = user_attributes
-        user = User(uuid, email, username, password_hash, first_name, last_name, state)
-        return user
-    
-def get_user_by_email(email):
-    # Search database for user with email
-    con = sqlite3.connect('database.db')
-    cur = con.cursor()
-    cur.execute('SELECT * FROM users WHERE email = ?', (email,))
-    user_attributes = cur.fetchone()
-    con.close()
-    
-    # If user is not found, return None
-    # Else, return user object
-    if user_attributes is None:
-        return None
-    else:
-        uuid, email, username, password_hash, first_name, last_name, state = user_attributes
-        user = User(uuid, email, username, password_hash, first_name, last_name, state)
-        return user
-    
-def check_login(username, password):
+def check_login(username, password) -> str: # success, username_not_found, incorrect_password
     # search database for user with username
 
     user = get_user_by_username(username)
