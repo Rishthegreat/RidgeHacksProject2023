@@ -3,13 +3,14 @@ from part_request import PartRequest
 
 # user class
 class User:
-    def __init__(self, email, username, password_hash, firstname, lastname, location, uuid):
+    def __init__(self, email, username, password_hash, firstname, lastname, latitude, longitude, uuid):
         self.email = email
         self.username = username
         self.password_hash = password_hash
         self.firstname = firstname
         self.lastname = lastname
-        self.location = location
+        self.latitude = latitude
+        self.longitude = longitude
         self.uuid = uuid
         self.requests = []
         self.matches = []
@@ -36,7 +37,7 @@ class User:
     def get_matches(self):
         return self.matches
     
-def create_new_account(email, username, password, firstname, lastname, address) -> User:
+def create_account(email, username, password, firstname, lastname) -> User:
     #generate a random 15 digit integer
     while True:
         uuid = random.randint(100000000000000, 999999999999999)
@@ -53,7 +54,7 @@ def create_new_account(email, username, password, firstname, lastname, address) 
     longitude = 0
 
     # create user object
-    user = User(email, username, password_hash, firstname, lastname, address, uuid, latitute, longitude)
+    user = User(email, username, password_hash, firstname, lastname, uuid, latitute, longitude)
     return user
 
 def get_user_by_id(id):
