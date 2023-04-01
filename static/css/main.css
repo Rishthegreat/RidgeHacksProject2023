@@ -6,7 +6,12 @@
 :root {
     --primary-background-color: #020c38;
     --primary-text-color: #95e3be;
+    --secondary-text-color: #49a277;
     --font-family: 'Futura', serif;
+}
+
+body {
+   margin: 0;
 }
 
 * {
@@ -16,14 +21,19 @@
 nav {
     background-color: var(--primary-background-color);
     width: 100%;
+    position: fixed;
+    top: 0;
+    transition: top 0.3s;
+    z-index: 9999;
 }
+
 
 .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 14px;
-    padding-bottom: 14px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     max-width: 70rem;
     margin-right: auto;
     margin-left: auto;
@@ -40,10 +50,23 @@ nav {
     font-size: 1.2rem;
 }
 
+.btn-fancy:hover {
+    background-color: var(--primary-background-color);
+    color: var(--primary-text-color);
+    border: var(--primary-text-color) 1px solid;
+    transition: 0.5s;
+}
+
 .navlinks {
     color: var(--primary-text-color);
     text-decoration: none;
     font-size: 1.2rem;
+    transition: 0.5s;
+}
+
+.navlinks:hover {
+    color: var(--secondary-text-color);
+    transition: 0.5s;
 }
 
 h1 {
@@ -62,4 +85,9 @@ h2 {
 .IMG {
     display: flex;
     justify-content: center;
+}
+
+.Slides {
+    height: 400px;
+    width: auto;
 }
