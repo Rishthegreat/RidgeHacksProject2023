@@ -48,6 +48,9 @@ available_parts = [
 # part class
 class Part:
     def __init__(self, brand, device, part_name):
+
+        # TODO: validate brand, device, part_name
+        '''
         if brand not in [brands[0] for brands in available_devices]:
             raise Exception('invalid_brand')
         
@@ -56,5 +59,6 @@ class Part:
         
         if part_name not in [parts[0] for parts in available_parts]:
             raise Exception('invalid_part')
+        '''
 
         self.part_id = f'{brand}-{device}-{part_name}'
