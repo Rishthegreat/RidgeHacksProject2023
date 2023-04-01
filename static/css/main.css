@@ -1,16 +1,64 @@
+@font-face {
+    font-family: 'Futura';
+    src: url('../fonts/Futura-PT-Book.ttf');
+}
+
 :root {
     --primary-background-color: #020c38;
     --primary-text-color: #95e3be;
+    --font-family: 'Futura', serif;
 }
-.navbar{
 
+* {
+    font-family: var(--font-family);
+}
+
+nav {
+    background-color: var(--primary-background-color);
+    width: 100%;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    max-width: 70rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.btn-fancy {
+    background-color: var(--primary-text-color);
+    color: var(--primary-background-color);
+    transition: 0.5s;
+    border: var(--primary-text-color) 1px solid;
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 15px;
+    font-size: 1.2rem;
+}
+
+.navlinks {
+    color: var(--primary-text-color);
+    text-decoration: none;
+    font-size: 1.2rem;
 }
 
 h1 {
-        text-align: center;
-        /**background-color: #3A7734;**/
-        background: var(--primary-background-color);
-    }
+    text-align: center;
+    /**background-color: #3A7734;**/
+    background: var(--primary-background-color);
+    font-size: large;
+}
+h2 {
+    text-align: center;
+    /**background-color: #3A7734;**/
+    background: var(--primary-background-color);
+    font-size: medium;
+}
+
 .IMG {
     display: flex;
     justify-content: center;

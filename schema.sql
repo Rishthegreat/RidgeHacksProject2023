@@ -4,7 +4,8 @@ create table users (
     password_hash text not null,
     email text not null,
     first_name text not null,
-    last_name text not null
+    last_name text not null,
+    location text not null
 );
 
 create table requests (
