@@ -12,14 +12,17 @@
     <div class = "navbar">
         <!-- Lef Div -->
         <div id="leftdiv">
-            <a href = '/'>
-                <img src="{{url_for('static', filename='images/logo.png')}}" alt="logo" width="100" height="100">
-                <span class="navlinks">Circuitrader</span>
+            <a href = '/' style="justify-items: center">
+                <img src="{{url_for('static', filename='images/Logo.png')}}" alt="logo" height="40">
+                <a class="navlinks" href="/">Circuitrader</a>
             </a>
         </div>
         <!-- Cen Div -->
         <div id = "centerdiv">
-            <a class="navlinks" href = "/"></a>
+            {% if session['logged_in'] %}
+            <a class="navlinks" href = "/offer" style="margin-right: 25px">Offer</a>
+            <a class="navlinks" href = "/getrequest">Request</a>
+            {% endif %}
         </div>
         <!-- Rig Div -->
         <div id="rightdiv">

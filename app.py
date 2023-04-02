@@ -26,11 +26,11 @@ def signup():
                 user.create_account(email, username, password, fname, lname, state)
                 return redirect('/login')
             elif (user.username_exists(username) == True):
-                return redirect('/signup', error=True, error_message="Username is in use")
+                return render_template('signup.html', error_message="Username is in use")
             else:
-                return redirect('/signup', error=True, error_message="Email is in use")
+                return render_template('signup.html', error_message="Email is in use")
         else:
-            return redirect('/signup', error=True, error_message="Incomplete form")
+            return render_template('signup.html', error_message="Incomplete form")
     else:
         return render_template('signup.html')
 
@@ -47,31 +47,14 @@ def login():
             session['logged_in'] = True
             return redirect('/')
         elif login_success == 'username_not_found':
-            return redirect('/login', error=True, error_message="Username not found")
+            return render_template('login.html', error_message="Username not found")
         else:
-            return redirect('/login', error=True, error_message="Incorrect password")
+            return render_template('login.html', error_message="Incorrect password")
         # Call the database to validate the user
         return redirect('/')
     else:
         return render_template('login.html')
 
-
-@app.route('/offer', methods=['POST', 'GET'])
-def offer():
-    if request.method == 'POST':
-
-        brand = request.form['brand']
-        part = request.form['part']
-        if(brand == 'apple'):
-            device = request.form['apple_device']
-        elif (brand == 'samsung'):
-            device = request.form['samsung_device']
-        else:
-            device = request.form['google_device']
-        user.update_offers(brand, device, part)
-
-    else:
-        return render_template('offer.html')
 
 @app.route('/logout')
 def logout():
@@ -93,8 +76,7 @@ def getrequest():
         else:
             device = request.form['google_device']
         requestedpart = Part(brand, device, part)
-        user.add_request(requestedpart)
-
+        user.get_user_by_uuid(session['uuid']).add_request(requestedpart)
     else:
         return render_template('getrequest.html')
 
@@ -111,7 +93,7 @@ def offer():
         else:
             device = request.form['google_device']
         requestedpart = Part(brand, device, part)
-        user.add_offer(requestedpart)
+        user.get_user_by_uuid(session['uuid']).add_offer(requestedpart)
 
     else:
         return render_template('offer.html')

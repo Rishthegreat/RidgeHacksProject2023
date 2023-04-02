@@ -3,7 +3,7 @@
 {% block bodyContent %}
 <style>
     body {
-        background-color: var(--primary-text-color);
+        background: url('../static/images/c.jpg');
     }
 
     .formdiv {
@@ -59,7 +59,7 @@
 </div>
 <div class="formdiv">
     <form id="myform" action="/login" method="post">
-        {% if error is defined and error is sameas true %}
+        {% if error_message is defined %}
         <div id="alert">{{error_message}}</div>
         {% endif %}
         <label for="username">Username:</label><br>

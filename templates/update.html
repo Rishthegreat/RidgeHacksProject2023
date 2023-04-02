@@ -3,8 +3,8 @@
 {% block bodyContent %}
 
 <style>
-    body {
-        background-color: var(--primary-text-color);
+body {
+        background: url('../static/images/c.jpg');
     }
 
     .formdiv {
@@ -21,10 +21,12 @@
         color: var(--primary-text-color);
         font-size: 1.5rem;
     }
+
     form input {
         font-size: 1.3rem;
         border-radius: 5px;
     }
+
     .noacc {
         display: flex;
         position: absolute;
@@ -32,9 +34,11 @@
         left: 50%;
         transform: translateX(-50%);
     }
+
     .noacc h1 {
         font-size: 1.2rem;
     }
+
     .signupbtn {
         background: transparent;
         border: none;
@@ -43,14 +47,22 @@
         text-decoration: underline;
         transition: 0.5s;
     }
+
     .signupbtn:hover {
         cursor: pointer;
         color: var(--secondary-text-color);
         transition: 0.5s;
     }
+
     .h1top {
         position: absolute;
         top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .h2top {
+        position: absolute;
+        top: 40%;
         left: 50%;
         transform: translateX(-50%);
     }
@@ -60,14 +72,13 @@
     <h1>Click the Button to update the matches for your requests</h1>
 </div>
 
-<div class='container'>
-    <h3>Test</h3>
-        <form action="/update" method="post">
-            {% if error is defined and error is sameas true %}
-            <div id="alert">{{error_message}}</div>
-            {% endif %}
-            <input class="btn-fancy" style="margin-top: 35px" type="submit" class="float-right submit-button">Update Matches</input>
-        </form>
+<div class='h2top'>
+    <form action="/update" method="post">
+        {% if error_message is defined %}
+        <div id="alert">{{error_message}}</div>
+        {% endif %}
+        <input class="btn-fancy" style="margin-top: 35px;" type="submit" class="float-right submit-button" value="Update Matches">
+    </form>
 </div>
 
 <script>
