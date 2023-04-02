@@ -65,7 +65,7 @@
 </div>
 <div class="formdiv">
     <form action="/signup" method="post">
-        {% if error is defined and error is sameas true %}
+        {% if error_message is defined %}
         <div id="alert">{{error_message}}</div>
         {% endif %}
         <label for="email">Email:</label><br>

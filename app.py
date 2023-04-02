@@ -98,15 +98,15 @@ def offer():
     else:
         return render_template('offer.html')
 
-@app.route('/update')
+@app.route('/update', methods = ['POST', 'GET'])
 def update():
     if request.method == 'POST':
 
         match = matcher.search_for_match(session['uuid'])
         if match != None: # If the user is valid
-            return redirect('/update', error=True, error_message="Match found! You can contact your offerer by emailing them at" + match.get_offerer.email)
+            return render_template('update.html', error_message="Match found! You can contact your offerer by emailing them at " + match.get_offerer().email)
         else:
-            return redirect('/update', error=True, error_message="We weren't able to find an offer for you, please try again later")
+            return render_template('update.html', error_message="We weren't able to find an offer for you, please try again later")
         # Call the database to validate the user
     else:
         return render_template('update.html')
